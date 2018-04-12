@@ -1,0 +1,43 @@
+name: 违规写数据操作
+
+type: frequency
+
+index: logstash-*
+
+num_events: 1
+timeframe:
+  minutes: 1
+
+query_key:
+  - name
+realert:
+  minutes: 1
+
+filter:
+- query_string:
+    query: '(name:encrypt_* AND cmd:rename AND -dst:"/data/encrypt_out/" AND -dst:"/tmp/logs/" AND -dst:"/tmp/hadoop-yarn/" AND -(dst:"/user/" AND dst:encrypt_*)) AND -(name:encrypt_chenkovsky.chen AND cmd:rename AND dst:"/user/dw/inputtext/")'
+
+alert:
+- "email"
+
+email:
+- "gXXXX"
+- "lXXXXX"
+- "fXXXXX"
+
+alert_subject: "{}违规写数据操作"
+alert_subject_args:
+  - name
+
+alert_text_type: alert_text_only
+alert_text: |
+   {}发生违规写数据操作
+   > 发生时间: {}
+   > 写目录为: {}
+   > 元数据: {}
+
+alert_text_args:
+  - name
+  - time
+  - dst
+  - message
