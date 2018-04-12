@@ -1,0 +1,43 @@
+name: 违规删除数据操作
+
+type: frequency
+
+index: logstash-*
+
+num_events: 1
+timeframe:
+  minutes: 1
+
+query_key:
+  - name
+realert:
+  minutes: 1
+
+filter:
+- query_string:
+     query: '(name:encrypt_* AND cmd:delete AND src:"/data/encrypt_out/") OR (name:encrypt_* AND cmd:rename AND src:"/data/encrypt_out/" AND (dst:"/user/" AND dst:encrypt_* AND dst:"/.Trash/"))'
+
+alert:
+- "email"
+
+email:
+- "XXXXX"
+- "XXXXXX"
+- "XXXXX"
+
+alert_subject: "{}违规删除数据操作"
+alert_subject_args:
+  - name
+
+alert_text_type: alert_text_only
+alert_text: |
+   {}发生违规删除数据操作
+   > 发生时间: {}
+   > 删除目录为: {}
+   > 元数据: {}
+
+alert_text_args:
+  - name
+  - time
+  - src
+  - message
