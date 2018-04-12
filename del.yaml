@@ -15,7 +15,7 @@ realert:
 
 filter:
 - query_string:
-     query: '(name:encrypt_* AND cmd:delete AND src:"/data/encrypt_out/") OR (name:encrypt_* AND cmd:rename AND src:"/data/encrypt_out/" AND (dst:"/user/" AND dst:encrypt_* AND dst:"/.Trash/"))'
+     query: '((name:encrypt_* AND cmd:delete AND src:"/data/encrypt_out/") OR (name:encrypt_* AND cmd:rename AND src:"/data/encrypt_out/" AND (dst:"/user/" AND dst:encrypt_* AND dst:"/.Trash/")) OR (-name:hadoop AND src:"/tmp/spark_logs/" AND cmd:delete) OR (-name:hadoop AND cmd:rename AND src:"/tmp/spark_logs/" AND dst:"/user/hadoop/.Trash/")) AND -(name:encrypt_* AND cmd:delete AND (src:"/data/encrypt_out/" AND src:"/_temporary"))'
 
 alert:
 - "email"
