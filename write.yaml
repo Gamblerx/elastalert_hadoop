@@ -15,7 +15,7 @@ realert:
 
 filter:
 - query_string:
-    query: '(name:encrypt_* AND cmd:rename AND -dst:"/data/encrypt_out/" AND -dst:"/tmp/logs/" AND -dst:"/tmp/hadoop-yarn/" AND -dst:"/tmp/spark_logs/" AND -(dst:"/user/" AND dst:encrypt_*)) AND -(name:encrypt_chenkovsky.chen AND cmd:rename AND dst:"/user/dw/inputtext/")'
+    query: '(name:encrypt_* AND cmd:rename AND -dst:"/data/encrypt_out/" AND -dst:"/tmp/logs/" AND -dst:"/tmp/hadoop-yarn/" AND -dst:"/tmp/spark_logs/" AND -(dst:"/user/" AND dst:encrypt_*) AND -(src:"/tmp/" AND src:temporary AND dst:"/tmp/" AND dst:temporary)) AND -(name:encrypt_chenkovsky.chen AND cmd:rename AND dst:"/user/dw/inputtext/")'
     
 alert:
 - "email"
