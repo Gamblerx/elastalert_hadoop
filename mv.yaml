@@ -18,7 +18,10 @@ filter:
         query: 'name:encrypt_* AND cmd:rename AND (src:"/data/encrypt_out/" AND -dst:"/data/encrypt_out/")'
 
 alert:
+- "command"
 - "email"
+
+command: ["/usr/local/security/elastalert/alert_command/write.sh"]
 
 email:
 - "XXXX"
