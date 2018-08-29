@@ -24,7 +24,7 @@ smtp_port: 587
 
 #保存了邮箱验证的账号密码信息
 smtp_auth_file: example_rules/smtp_auth_file.yaml
-from_addr: security@cootek.cn
+from_addr: 
 
 # The AWS region to use. Set this when using AWS-managed elasticsearch
 #aws_region: us-east-1
